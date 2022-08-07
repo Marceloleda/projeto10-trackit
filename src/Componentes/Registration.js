@@ -47,9 +47,6 @@ export default function Registration(){
             console.log(err.message)
         })
     }
-    if(data.lenght > 0){
-        setRemoveLoad(true)
-    }
 
 
     return(
@@ -77,7 +74,7 @@ export default function Registration(){
                         {removeLoad === false? "Cadastrar" : <ThreeDots height="80" 
                             width="80" 
                             radius="9"
-                            color="#4fa94d" 
+                            color="#FFFFFF" 
                             ariaLabel="three-dots-loading"
                             wrapperStyle={{}}
                             wrapperClassName=""

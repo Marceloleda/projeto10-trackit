@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useState, useEffect, createContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useState} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
@@ -9,33 +9,53 @@ import { ThreeDots } from 'react-loader-spinner';
 
 
 export default function Login(){
+    const { tasks, setTasks } = useContext(UserContext);
+    const navigate = useNavigate();
     const [removeLoad, setRemoveLoad] = useState(false);
-    const [data, setData] = useState({
+    const [login, setLogin] = useState({
         email:"",
         senha:"",
     });
 
     function enviar(event){
         event.preventDefault();
-        
+        setRemoveLoad(true);
+        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`;
+        const dados ={
+            email: login.email,
+            password: login.senha
+        }
+        const promise = axios.post(URL, dados)
+        promise.then((response)=>{
+            console.log(response.data)
+            setTasks({...tasks, 
+                token: response.data.token,
+                image: response.data.image
+            })
+            navigate('/hoje');
+        })
+        promise.catch((err)=>{
+            alert(`Algo está errado! Verifique seus dados e tente novamente! =)`)
+            setRemoveLoad(false)
+        })
     }
-
-
     
     return(
         <> 
-            <Conteiner>
+            <Conteiner load={removeLoad}>
                 <Imagem src={Logo} alt='logo'/>
-                <form>
-                    <Log id="email" type="email" placeholder="email" value={data.email} onChange={(e)=>
-                    setData({...data, email: e.target.value})
-                    }/>
-                    <Log id="senha" type="password" placeholder="senha"/>
+                <form onSubmit={enviar}>
+                    <Log id="email" type="email" placeholder="email" value={login.email} onChange={(e)=>
+                    setLogin({...login, email: e.target.value})
+                    } required/>
+                    <Log id="senha" type="password" placeholder="senha" value={login.senha} onChange={(e)=>
+                    setLogin({...login, senha: e.target.value})
+                    }required/>
                     <Botao type='submit' >
                         {removeLoad === false? "Entrar" : <ThreeDots height="80" 
                             width="80" 
                             radius="9"
-                            color="#4fa94d" 
+                            color="#FFFFFF" 
                             ariaLabel="three-dots-loading"
                             wrapperStyle={{}}
                             wrapperClassName=""
@@ -65,6 +85,8 @@ const Conteiner = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    opacity:${(props)=> props.load === false? "1" : "0.5"};
+    pointer-events: ${(props)=> props.load === false? "" : "none"};
 `;
 
 const Cadastro = styled.div`
@@ -87,6 +109,9 @@ const Log = styled.input`
     box-sizing: border-box;
 `;
 const Botao = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 303px;
     height: 45px;
     margin-left: 36px;
