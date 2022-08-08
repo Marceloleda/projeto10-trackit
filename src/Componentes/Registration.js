@@ -96,7 +96,6 @@ export default function Registration(){
  />
 
 const Imagem = styled.img`
-    margin-top: 75px;
     margin-bottom: 35px;
   
     width: 180px;
@@ -104,6 +103,9 @@ const Imagem = styled.img`
 `;
 
 const Conteiner = styled.div`
+    background: #FFFFFF;
+    height:100vh;
+
     display:flex;
     justify-content: center;
     align-items: center;

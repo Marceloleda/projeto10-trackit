@@ -3,9 +3,8 @@ import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
 export default function Top(){
-    const { tasks, setTasks } = useContext(UserContext);
+    const { tasks } = useContext(UserContext);
  
-    console.log(tasks)
     return(
         <>
             <Topo>
@@ -13,7 +12,7 @@ export default function Top(){
                     <h1>TrackIt</h1>
                 </NomeTopo>
                 <FotoPerfil>
-                    <img src={tasks.image}/>
+                    <img src={tasks.image} alt="Perfil"/>
                 </FotoPerfil>
             </Topo>
         </>
@@ -23,8 +22,10 @@ const Topo = styled.div`
     position:fixed;
     display:flex;
     justify-content: space-between;
-    hight: 70px;
+    align-items:center;
+    height: 70px;
     width: 375px;
+    top: 0px;
     background:#126BA5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     padding: 18px;

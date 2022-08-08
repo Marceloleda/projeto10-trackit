@@ -74,13 +74,14 @@ export default function Login(){
 }
 
 const Imagem = styled.img`
-    margin-top: 75px;
     margin-bottom: 35px;
-  
+    margin-top: -100px;
     width: 180px;
     height: 178px;
 `;
 const Conteiner = styled.div`
+    background: #FFFFFF;
+    height:100vh;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -120,11 +121,8 @@ const Botao = styled.button`
     border:none;
     cursor: pointer;
     font-family:     'Lexend Deca';
-    font-size: 20.976px;
+    font-size: 20px;
     line-height: 26px;
     text-align: center;
     color: #FFFFFF;
-    &:hover {
-	    background: #0864a5;
-    }
 `;
